@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {{ template "head.tmpl" . }}
+
+        <title>Account</title>
+    </head>
+    <body>
+
+        {{ template "navbar.tmpl" . }}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 clearfix">
+
+                    {{ template "alerts.tmpl" . }}
+
+                    <legend>
+                        My Christmas List
+                        <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#addItemModal">Add Item</button>
+                    </legend>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="grid clearfix">
+                    {{ if .items }}
+                        {{ range $i, $item := .items }}
+                            <div class="col-xl-3 item">
+                                <div id="view-{{ $i }}" class="panel panel-default">
+                                    <div class="panel-heading clearfix">
+                                        {{ $item.Name }}
+                                        <button id="edit-button-{{ $i }}" data-index="{{ $i }}"  class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="">
+                                            <p>
+                                                Quantity Wanted: {{ $item.Quantity }}
+                                            </p>
+                                            {{ if $item.Link }}
+                                                <p><a href="{{ $item.Link }}" target="_blank">Link</a></p>
+                                            {{ end }}
+                                            {{ $item.Notes }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form action="/item" method="post">
+                                    <div id="edit-{{ $i }}" class="panel panel-default hide">
+                                            <div class="panel-heading clearfix">
+                                                <div class="row">
+                                                    <div class="col-xl-9">
+                                                        <input class="form-control" type="text" name="name" value="{{ $item.Name }}">
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <button id="view-button-{{ $i }}" data-index="{{ $i }}" type="button" class="btn btn-default btn-xs pull-right view-item">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div>
+                                                        <p>
+                                                            Quantity Wanted
+                                                            <input class="form-control" type="number" name="quantity" value="{{ $item.Quantity }}">
+                                                        </p>
+                                                        <p>
+                                                            Link
+                                                            <input class="form-control" type="text" name="link" value="{{ $item.Link }}">
+                                                        </p>
+                                                        <p>
+                                                            Notes / Description
+                                                            <textarea class="form-control" name="notes" rows="5">{{ $item.Notes }}</textarea>
+                                                        </p>
+                                                        <input type="hidden" name="id" value="{{ $item.Id }}">
+                                                        <p>
+                                                            <button class="btn btn-success btn-block">Save</button>
+                                                        </p>
+                                                        <a class="btn btn-block btn-danger confirm-action" data-message="Are you sure you would like to remove this {{ $item.Name }} from your Christmas list? If anyone has purchased this item for you there is no way to let them know about this change." data-color="#ff0000" data-url="/endpoint" data-type="warning">Remove</a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </form>
+                            </div>
+                        {{ end }}
+                    {{ else }}
+                        <div class="col-xl-12 text-center">
+                            Oh no! Your Christmas list is empty!
+                        </div>
+                    {{ end }}
+
+                     <!-- <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+
+                                <p><a href="http://google.com">Link</a></p>
+                                This it the notes/description area for the christmas list This it the notes/description area for the christmas listThis it the notes/description area for the christmas list
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <p><a href="http://google.com">Link</a></p>
+
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <p><a href="http://google.com">Link</a></p>
+
+                                This it the notes/description area for the christmas list
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <p><a href="http://google.com">Link</a></p>
+
+                                This it the notes/description area for the christmas list This it the notes/description area for the christmas list
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <p><a href="http://google.com">Link</a></p>
+
+                                This it the notes/description area
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <p><a href="http://google.com">Link</a></p>
+
+                                This it the notes/description area This it the notes/description area for the christmas list This it the notes/description area for the christmas list
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <p><a href="http://google.com">Link</a></p>
+
+                                This it the notes/description area for the christmas list
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <p><a href="http://google.com">Link</a></p>
+
+                                This it the notes/description area for the christmas list This it the notes/description area for the christmas list This it the notes/description area for the christmas list This it the notes/description area for the christmas list
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 item">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                Robot Toy
+                                <button   class="btn btn-default btn-xs pull-right edit-item">Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <p><a href="http://google.com">Link</a></p>
+
+                                This it the notes/description area for the christmas list
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add Item</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/item" method="post">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" name="name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input class="form-control" type="text" name="quantity">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Link</label>
+                                <input class="form-control" type="text" name="link">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Notes / Description</label>
+                                <textarea class="form-control" name="notes" rows="5"></textarea>
+                            </div>
+                            <button class="btn btn-primary btn-block">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ template "scripts.tmpl" . }}
+
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+        <script type="text/javascript">
+            var grid = $('.grid').masonry({
+                itemSelector: '.item',
+                // columnWidth: 200
+            });
+
+            $('.edit-item').click(function() {
+                var idx = $(this).attr('data-index');
+                $('div#view-' + idx).addClass('hide');
+                $('div#edit-' + idx).removeClass('hide');
+                $('.edit-item').addClass('hide');
+                grid.masonry('layout');
+            });
+
+            $('.view-item').click(function() {
+                var idx = $(this).attr('data-index');
+                $('div#edit-' + idx).addClass('hide');
+                $('div#view-' + idx).removeClass('hide');
+                $('.edit-item').removeClass('hide');
+                grid.masonry('layout');
+            });
+
+        </script>
+
+        <script>
+        // var table = $('#items').DataTable({
+        //         "lengthMenu":[10,15,20],
+        //         /*"pageLength": 20,
+        //         "columnDefs": [
+        //             { "orderable": false, "targets": [3] },
+        //             { "name": "name",     "targets": 0 },
+        //             { "name": "contact",  "targets": 1 },
+        //             { "name": "phone",    "targets": 2 },
+        //             { "name": "email",    "targets": 3 },
+        //             { "name": "dot",      "targets": 4 }
+        //         ]*/
+        //     });
+        </script>
+    </body>
+</html>

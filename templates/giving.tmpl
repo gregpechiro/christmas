@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {{ template "head.tmpl" . }}
+        <style media="screen">
+            .regular .panel {
+                background-color: green;
+            }
+            .regular .panel a {
+                color: red;
+            }
+            .secret .panel {
+                background-color: red;
+            }
+
+            .secret .panel a {
+                color: green;
+            }
+
+            button.secret {
+                background-color: red;
+                color: green;
+            }
+
+            button.regular {
+                background-color: green;
+                color: red;
+            }
+        </style>
+        <title>Shared With</title>
+    </head>
+    <body>
+
+        {{ template "navbar.tmpl" . }}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+
+                    {{ template "alerts.tmpl" . }}
+
+                    <legend>
+                        People I who shared their Christmas list with me
+                        <div class="pull-right btn-group btn-group-xs">
+                            <button type="button" class="btn btn-default all">All</button>
+                            <button type="button" class="btn btn-default regular">Regular</button>
+                            <button type="button" class="btn btn-default secret">Secret Santa</button>
+                        </div>
+                    </legend>
+                </div>
+            </div>
+            <div class="row">
+
+                {{ if .givingTo }}
+                    <div class="grid">
+                        {{ range $giving := .givingTo }}
+                            <div class="grid-item col-xl-3 {{ if $giving.Exchange.Secret }}secret{{ else }}regular{{ end }}">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <a href="/list/{{ $giving.RecId }}">{{ $giving.User.FirstName }} {{ $giving.User.LastName }}</a>
+                                        <button class="btn btn-xs btn-danger pull-right confirm-action" data-message="Are you sure you would like to remove move this Christmas list?" data-color="#ff0000" data-url="/endpoint" data-type="warning"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        {{ end }}
+                    </div>
+                {{ else }}
+                    <div class="col-xl-12 text-center">
+                        Oh no! You aren't giving any gifts!!
+                    </div>
+                {{ end }}
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="invitePersonModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Invite Person</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/invite" method="post">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" type="email" name="email">
+                            </div>
+                            <button class="btn btn-primary btn-block">Invite</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ template "scripts.tmpl" . }}
+
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
+
+        <script type="text/javascript">
+            var grid = $('.grid').isotope({
+                // options
+                itemSelector: '.grid-item',
+                layoutMode: 'fitRows'
+            });
+
+            $('button.secret').click(function() {
+                grid.isotope({ filter: '.secret' });
+            });
+
+            $('button.regular').click(function() {
+                grid.isotope({ filter: '.regular' });
+            });
+
+            $('button.all').click(function() {
+                grid.isotope({ filter: '*' });
+            });
+
+        </script>
+
+    </body>
+</html>
