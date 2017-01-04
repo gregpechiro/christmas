@@ -80,6 +80,7 @@ var saveItem = web.Route{"POST", "/item", func(w http.ResponseWriter, r *http.Re
 	fmt.Println(item)
 	db.Set("item", item.Id, item)
 	web.SetSuccessRedirect(w, r, "/my-list", "Successfully saved item")
+
 	return
 }}
 
@@ -88,6 +89,7 @@ var giving = web.Route{"GET", "/giving", func(w http.ResponseWriter, r *http.Req
 	if !ok {
 		web.Logout(w)
 		web.SetErrorRedirect(w, r, "/", "Please login")
+
 		return
 	}
 	var user User
@@ -98,6 +100,7 @@ var giving = web.Route{"GET", "/giving", func(w http.ResponseWriter, r *http.Req
 	}
 	givingTo := GetGivingTo(user.Id)
 	tmpl.Render(w, r, "giving.tmpl", web.Model{
+
 		"user":     user,
 		"givingTo": givingTo,
 	})
@@ -123,6 +126,27 @@ var sharing = web.Route{"GET", "/sharing", func(w http.ResponseWriter, r *http.R
 	})
 }}
 
+var intives = web.Route{"GET", "/invite", func(w http.ResponseWriter, r *http.Request) {
+	userId, ok := web.GetSess(r, "id").(string)
+	if !ok {
+		web.Logout(w)
+		web.SetErrorRedirect(w, r, "/", "Please login")
+		return
+	}
+	var user User
+	if !db.Get("user", userId, &user) {
+		web.Logout(w)
+		web.SetErrorRedirect(w, r, "/", "Please login")
+		return
+	}
+	exInvites := GetInvites(user.Id)
+	tmpl.Render(w, r, "giving.tmpl", web.Model{
+
+		"user":    user,
+		"invites": exInvites,
+	})
+}}
+
 var invite = web.Route{"POST", "/invite", func(w http.ResponseWriter, r *http.Request) {
 	userId, ok := web.GetSess(r, "id").(string)
 	if !ok {
@@ -138,10 +162,11 @@ var invite = web.Route{"POST", "/invite", func(w http.ResponseWriter, r *http.Re
 	}
 
 	exchange := Exchange{
-		Id:      genId(),
-		RecId:   userId,
-		GiverId: user.Id,
-		Secret:  false,
+		Id:       genId(),
+		RecId:    userId,
+		GiverId:  user.Id,
+		Secret:   false,
+		Accepted: false,
 	}
 
 	db.Set("exchange", exchange.Id, exchange)

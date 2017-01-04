@@ -12,7 +12,7 @@
             {{ template "alerts.tmpl" . }}
             <div class="row">
 
-                <div class="col-xl-4 col-xl-offset-4">
+                <div class="col-xl-4 col-xl-offset-4 col-lg-4 col-lg-offset-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Login
@@ -22,17 +22,17 @@
                             <form class="form-horizontal" action="/login" method="post">
 
                                 <div class="form-group">
-                                    <span class="col-xl-offset-4 col-xl-8 text-danger">{{ getFormError .formErrors "login.email" }}</span>
-                                    <label class="control-label col-xl-4">Email</label>
-                                    <div class="col-xl-8">
+                                    <span class="col-xl-offset-4 col-xl-8 col-lg-offset-4 col-lg-8 text-danger">{{ getFormError .formErrors "login.email" }}</span>
+                                    <label class="control-label col-xl-4 col-lg-4">Email</label>
+                                    <div class="col-xl-8 col-lg-8">
                                         <input class="form-control" type="email" name="email">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <span class="col-xl-offset-4 col-xl-8 text-danger">{{ getFormError .formErrors "login.password" }}</span>
-                                    <label class="control-label col-xl-4">Password</label>
-                                    <div class="col-xl-8">
+                                    <span class="col-xl-offset-4 col-xl-8 col-lg-offset-4 col-lg-8 text-danger">{{ getFormError .formErrors "login.password" }}</span>
+                                    <label class="control-label col-lg-4">Password</label>
+                                    <div class="col-xl-8 col-lg-8">
                                         <input class="form-control" type="password" name="password">
                                     </div>
                                 </div>
@@ -51,42 +51,34 @@
                             <form class="form-horizontal" action="/register" method="post">
 
                                 <div class="form-group">
-                                    <span class="col-xl-offset-4 col-xl-8 text-danger">{{ getFormError .formErrors "register.firstName" }}</span>
-                                    <label class="control-label col-xl-4">First Name</label>
-                                    <div class="col-xl-8">
+                                    <span class="col-xl-offset-4 col-xl-8 col-lg-offset-4 col-lg-8 text-danger">{{ getFormError .formErrors "register.firstName" }}</span>
+                                    <label class="control-label col-xl-4 col-lg-4">First Name</label>
+                                    <div class="col-xl-8 col-lg-8">
                                         <input class="form-control" type="text" name="firstName">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <span class="col-xl-offset-4 col-xl-8 text-danger">{{ getFormError .formErrors "register.lastName" }}</span>
-                                    <label class="control-label col-xl-4">Last Name</label>
-                                    <div class="col-xl-8">
+                                    <span class="col-xl-offset-4 col-xl-8 col-lg-offset-4 col-lg-8 text-danger">{{ getFormError .formErrors "register.lastName" }}</span>
+                                    <label class="control-label col-xl-4 col-lg-4">Last Name</label>
+                                    <div class="col-xl-8 col-lg-8">
                                         <input class="form-control" type="text" name="lastName">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <span class="col-xl-offset-4 col-xl-8 text-danger">{{ getFormError .formErrors "register.email" }}</span>
-                                    <label class="control-label col-xl-4">Email</label>
-                                    <div class="col-xl-8">
+                                    <span class="col-xl-offset-4 col-xl-8 col-lg-offset-4 col-lg-8 text-danger">{{ getFormError .formErrors "register.email" }}</span>
+                                    <label class="control-label col-xl-4 col-lg-4">Email</label>
+                                    <div class="col-xl-8 col-lg-8">
                                         <input class="form-control" type="email" name="email">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <span class="col-xl-offset-4 col-xl-8 text-danger">{{ getFormError .formErrors "register.password" }}</span>
-                                    <label class="control-label col-xl-4">Password</label>
-                                    <div class="col-xl-8">
+                                    <span class="col-xl-offset-4 col-xl-8 col-lg-offset-4 col-lg-8 text-danger">{{ getFormError .formErrors "register.password" }}</span>
+                                    <label class="control-label col-xl-4 col-lg-4">Password</label>
+                                    <div class="col-xl-8 col-lg-8">
                                         <input class="form-control" type="password" name="password">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <span class="col-xl-offset-4 col-xl-8 text-danger">{{ getFormError .formErrors "register.age" }}</span>
-                                    <label class="control-label col-xl-4">Age</label>
-                                    <div class="col-xl-8">
-                                        <input class="form-control" type="text" name="age">
                                     </div>
                                 </div>
 

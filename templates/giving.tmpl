@@ -36,7 +36,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-xl-12 col-lg-12">
 
                     {{ template "alerts.tmpl" . }}
 
@@ -55,7 +55,7 @@
                 {{ if .givingTo }}
                     <div class="grid">
                         {{ range $giving := .givingTo }}
-                            <div class="grid-item col-xl-3 {{ if $giving.Exchange.Secret }}secret{{ else }}regular{{ end }}">
+                            <div class="grid-item col-xl-3 col-lg-3 {{ if $giving.Exchange.Secret }}secret{{ else }}regular{{ end }}">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <a href="/list/{{ $giving.RecId }}">{{ $giving.User.FirstName }} {{ $giving.User.LastName }}</a>
@@ -66,7 +66,7 @@
                         {{ end }}
                     </div>
                 {{ else }}
-                    <div class="col-xl-12 text-center">
+                    <div class="col-xl-12 col-lg-12 text-center">
                         Oh no! You aren't giving any gifts!!
                     </div>
                 {{ end }}

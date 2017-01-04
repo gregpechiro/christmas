@@ -12,7 +12,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-xl-12 col-xl-12">
 
                     {{ template "alerts.tmpl" . }}
 
@@ -23,7 +23,7 @@
 
                     {{ if .sharingWith }}
                         {{ range $share := .sharingWith }}
-                            <div class="col-xl-3">
+                            <div class="col-xl-3 col-lg-3">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         {{ $share.User.FirstName }} {{ $share.User.LastName }}
@@ -33,7 +33,7 @@
                             </div>
                         {{ end }}
                     {{ else }}
-                        <div class="col-xl-12 text-center">
+                        <div class="col-xl-12 col-lg-12 text-center">
                             Oh no! No one is getting you any gifts!
                         </div>
                     {{ end }}

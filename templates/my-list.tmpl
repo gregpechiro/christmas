@@ -28,7 +28,7 @@
                 <div class="grid clearfix">
                     {{ if .items }}
                         {{ range $i, $item := .items }}
-                            <div class="col-xl-3 item">
+                            <div class="col-xl-3 col-lg-3 item">
                                 <div id="view-{{ $i }}" class="panel panel-default">
                                     <div class="panel-heading clearfix">
                                         {{ $item.Name }}
@@ -49,43 +49,43 @@
 
                                 <form action="/item" method="post">
                                     <div id="edit-{{ $i }}" class="panel panel-default hide">
-                                            <div class="panel-heading clearfix">
-                                                <div class="row">
-                                                    <div class="col-xl-9">
-                                                        <input class="form-control" type="text" name="name" value="{{ $item.Name }}">
-                                                    </div>
-                                                    <div class="col-xl-3">
-                                                        <button id="view-button-{{ $i }}" data-index="{{ $i }}" type="button" class="btn btn-default btn-xs pull-right view-item">Cancel</button>
-                                                    </div>
+                                        <div class="panel-heading clearfix">
+                                            <div class="row">
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <input class="form-control" type="text" name="name" value="{{ $item.Name }}">
+                                                </div>
+                                                <div class="col-xl-3 col-lg-3">
+                                                    <button id="view-button-{{ $i }}" data-index="{{ $i }}" type="button" class="btn btn-default btn-xs pull-right view-item">Cancel</button>
                                                 </div>
                                             </div>
-                                            <div class="panel-body">
-                                                <div>
-                                                        <p>
-                                                            Quantity Wanted
-                                                            <input class="form-control" type="number" name="quantity" value="{{ $item.Quantity }}">
-                                                        </p>
-                                                        <p>
-                                                            Link
-                                                            <input class="form-control" type="text" name="link" value="{{ $item.Link }}">
-                                                        </p>
-                                                        <p>
-                                                            Notes / Description
-                                                            <textarea class="form-control" name="notes" rows="5">{{ $item.Notes }}</textarea>
-                                                        </p>
-                                                        <input type="hidden" name="id" value="{{ $item.Id }}">
-                                                        <p>
-                                                            <button class="btn btn-success btn-block">Save</button>
-                                                        </p>
-                                                        <a class="btn btn-block btn-danger confirm-action" data-message="Are you sure you would like to remove this {{ $item.Name }} from your Christmas list? If anyone has purchased this item for you there is no way to let them know about this change." data-color="#ff0000" data-url="/endpoint" data-type="warning">Remove</a>
-                                                </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div>
+                                                <p>
+                                                    Quantity Wanted
+                                                    <input class="form-control" type="number" name="quantity" value="{{ $item.Quantity }}">
+                                                </p>
+                                                <p>
+                                                    Link
+                                                    <input class="form-control" type="text" name="link" value="{{ $item.Link }}">
+                                                </p>
+                                                <p>
+                                                    Notes / Description
+                                                    <textarea class="form-control" name="notes" rows="5">{{ $item.Notes }}</textarea>
+                                                </p>
+                                                <input type="hidden" name="id" value="{{ $item.Id }}">
+                                                <p>
+                                                    <button class="btn btn-success btn-block">Save</button>
+                                                </p>
+                                                <a class="btn btn-block btn-danger confirm-action" data-message="Are you sure you would like to remove this {{ $item.Name }} from your Christmas list? If anyone has purchased this item for you there is no way to let them know about this change." data-color="#ff0000" data-url="/endpoint" data-type="warning">Remove</a>
                                             </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
                         {{ end }}
                     {{ else }}
-                        <div class="col-xl-12 text-center">
+                        <div class="col-xl-12 col-lg-12 text-center">
                             Oh no! Your Christmas list is empty!
                         </div>
                     {{ end }}

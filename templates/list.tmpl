@@ -12,7 +12,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-xl-12 clearfix">
+                <div class="col-xl-12 col-lg-12 clearfix">
 
                     {{ template "alerts.tmpl" . }}
 
@@ -29,7 +29,7 @@
                 <div class="grid clearfix">
                     {{ if .items }}
                         {{ range $i, $item := .items }}
-                            <div class="col-xl-3 item">
+                            <div class="col-xl-3 col-lg-3 item">
                                 <div id="view-{{ $i }}" class="panel panel-default">
                                     <div class="panel-heading clearfix">
                                         {{ $item.Name }}
@@ -81,7 +81,7 @@
                             </div>
                         {{ end }}
                     {{ else }}
-                        <div class="col-xl-12 text-center">
+                        <div class="col-xl-12 col-lg-12 text-center">
                             Oh no! Your Christmas list is empty!
                         </div>
                     {{ end }}

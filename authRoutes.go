@@ -42,7 +42,7 @@ var register = web.Route{"POST", "/register", func(w http.ResponseWriter, r *htt
 	sess["id"] = user.Id
 	sess["email"] = user.Email
 	web.PutMultiSess(w, r, sess)
-	web.SetSuccessRedirect(w, r, "/my-list", "welcome "+user.FirstName)
+	web.SetSuccessRedirect(w, r, "/my-list", "Welcome "+user.FirstName)
 	return
 }}
 
@@ -62,7 +62,7 @@ var loginPost = web.Route{"POST", "/login", func(w http.ResponseWriter, r *http.
 	sess["id"] = user.Id
 	sess["email"] = user.Email
 	web.PutMultiSess(w, r, sess)
-	web.SetSuccessRedirect(w, r, "/my-list", "welcome "+user.FirstName)
+	web.SetSuccessRedirect(w, r, "/my-list", "Welcome "+user.FirstName)
 	return
 }}
 

@@ -25,17 +25,19 @@ type Item struct {
 }
 
 type Invite struct {
-	Id     string `json:"id"`
-	ToId   string `json:"toId"`
-	FromId string `json:"fromId"`
-	Secret bool   `json:"secret"`
+	Id       string `json:"id"`
+	ToId     string `json:"toId"`
+	FromId   string `json:"fromId"`
+	Secret   bool   `json:"secret"`
+	Accepted bool   `json:"accepted"`
 }
 
 type Exchange struct {
-	Id      string `json:"id"`
-	GiverId string `json:"giverId, omitempty"`
-	RecId   string `json:"recId, omitempty"`
-	Secret  bool   `json:"secret"`
+	Id       string `json:"id"`
+	GiverId  string `json:"giverId, omitempty"`
+	RecId    string `json:"recId, omitempty"`
+	Secret   bool   `json:"secret"`
+	Accepted bool   `json:"accepted"`
 }
 
 type ExchangeView struct {
@@ -43,9 +45,24 @@ type ExchangeView struct {
 	User
 }
 
+func GetInvites(userId string) []ExchangeView {
+	var exchanges []Exchange
+	db.TestQuery("exchange", &exchanges, adb.Eq("giverId", `"`+userId+`"`), adb.Eq("Accepted", "false"))
+	var exchangeViews []ExchangeView
+	for _, exchange := range exchanges {
+		var user User
+		db.Get("user", exchange.RecId, &user)
+		exchangeViews = append(exchangeViews, ExchangeView{
+			Exchange: exchange,
+			User:     user,
+		})
+	}
+	return exchangeViews
+}
+
 func GetGivingTo(userId string) []ExchangeView {
 	var exchanges []Exchange
-	db.TestQuery("exchange", &exchanges, adb.Eq("giverId", `"`+userId+`"`))
+	db.TestQuery("exchange", &exchanges, adb.Eq("giverId", `"`+userId+`"`), adb.Eq("Accepted", "true"))
 	var exchangeViews []ExchangeView
 	for _, exchange := range exchanges {
 		var user User
